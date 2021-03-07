@@ -1,9 +1,6 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
+﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace EnvironmentsSample
 {
-    public class Startup
+    public class StartupProduction
     {
-        public Startup(IConfiguration configuration)
+        public StartupProduction(IConfiguration configuration)
         {
             Configuration = configuration;
             Console.WriteLine(MethodBase.GetCurrentMethod().DeclaringType.Name);
@@ -27,17 +24,11 @@ namespace EnvironmentsSample
             services.AddRazorPages();
         }
 
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-            else
-            {
-                app.UseExceptionHandler("/Error");
-                app.UseHsts();
-            }
+
+            app.UseExceptionHandler("/Error");
+            app.UseHsts();
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
